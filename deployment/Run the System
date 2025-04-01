@@ -1,0 +1,5 @@
+# Start the API server
+uvicorn src.api.app:app --reload
+
+# In another terminal, run tests
+pytest tests/
