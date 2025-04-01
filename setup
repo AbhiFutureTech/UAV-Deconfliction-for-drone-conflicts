@@ -1,0 +1,15 @@
+# Create the folder structure
+mkdir -p src/core src/api src/simulation src/data tests docs
+
+# Create empty __init__.py files to make Python treat directories as packages
+touch src/__init__.py src/core/__init__.py src/api/__init__.py src/simulation/__init__.py
+
+# Create main files
+touch src/core/models.py src/core/conflict_detection_2d.py src/core/conflict_detection_3d.py
+touch src/core/conflict_detection_4d.py src/core/utils.py
+touch src/api/app.py src/api/endpoints.py src/api/schemas.py
+touch src/simulation/visualization_2d.py src/simulation/visualization_3d.py
+touch src/simulation/visualization_4d.py src/simulation/trajectory_generator.py
+touch tests/test_2d_conflicts.py tests/test_3d_conflicts.py tests/test_4d_conflicts.py tests/test_api.py
+touch docs/API_REFERENCE.md docs/ARCHITECTURE.md docs/SCALABILITY.md
+touch README.md requirements.txt .gitignore
