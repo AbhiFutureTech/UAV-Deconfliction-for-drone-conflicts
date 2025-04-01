@@ -1,0 +1,13 @@
+# Generate API documentation
+pip install mkdocs mkdocs-material
+mkdocs new .
+
+# mkdocs.yml
+site_name: UAV Deconfliction Docs
+theme: material
+nav:
+  - Home: index.md
+  - API Reference:
+    - v1: api/v1.md
+    - v2: api/v2.md
+  - Architecture: architecture.md
