@@ -1,0 +1,14 @@
+# src/database/models.py
+from sqlalchemy import Column, Integer, Float, DateTime, String
+from database.base import Base
+
+class DroneMission(Base):
+    __tablename__ = "drone_missions"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    drone_id = Column(String, index=True)
+    waypoints = Column(JSON)  # Store serialized waypoints
+    t_start = Column(DateTime)
+    t_end = Column(DateTime)
+    status = Column(String, default="pending")
+    created_at = Column(DateTime, server_default=func.now())
