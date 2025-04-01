@@ -1,0 +1,40 @@
+# src/core/advanced_conflict.py
+import numpy as np
+from typing import List, Dict
+from datetime import datetime
+from scipy.spatial import KDTree
+from config import settings
+
+class ConflictEngine:
+    def __init__(self):
+        self.safety_buffer = settings.SAFETY_BUFFER_3D
+        self.altitude_buffer = settings.ALTITUDE_BUFFER
+    
+    def build_spatiotemporal_index(self, missions: List[Dict]):
+        """Create a KDTree for efficient spatial queries"""
+        points = []
+        for mission in missions:
+            traj = self.interpolate_trajectory(mission)
+            points.extend([(p['x'], p['y'], p['z'], p['timestamp']) for p in traj])
+        return KDTree(points)
+    
+    def detect_conflicts(self, primary_mission: Dict, other_missions: List[Dict]):
+        """Advanced conflict detection using spatial indexing"""
+        primary_traj = self.interpolate_trajectory(primary_mission)
+        other_index = self.build_spatiotemporal_index(other_missions)
+        
+        conflicts = []
+        for point in primary_traj:
+            # Query for nearby points in 4D space
+            neighbors = other_index.query_ball_point(
+                [point['x'], point['y'], point['z'], point['timestamp']],
+                r=self.safety_buffer
+            )
+            if neighbors:
+                conflicts.append({
+                    'location': (point['x'], point['y'], point['z']),
+                    'timestamp': point['timestamp'],
+                    'neighbors': neighbors
+                })
+        
+        return conflicts
