@@ -6,7 +6,7 @@
 - Visualization of conflicts
 - Cloud Deployable (Heroku, AWS, GCP)
 
-<!-- Uploading "1.png"... -->
+![Image](https://github.com/user-attachments/assets/c0cfd335-b024-43ca-8a10-e4ecb7cd37df)
 
 ## 🚀 Setup & Run Locally
 ```bash
