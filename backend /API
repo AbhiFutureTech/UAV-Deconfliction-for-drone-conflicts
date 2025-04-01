@@ -1,0 +1,24 @@
+# src/api/v2/endpoints.py
+from fastapi import APIRouter, BackgroundTasks
+from fastapi_cache.decorator import cache
+from tasks.conflict_tasks import check_conflict_task
+from models.schemas import MissionCreate, ConflictResult
+
+router = APIRouter(prefix="/v2")
+
+@router.post("/missions", status_code=202)
+async def create_mission(
+    mission: MissionCreate, 
+    background_tasks: BackgroundTasks
+):
+    """Submit new mission for conflict checking"""
+    mission_id = create_mission_in_db(mission)
+    background_tasks.add_task(check_conflict_task, mission_id)
+    return {"message": "Mission accepted", "mission_id": mission_id}
+
+@router.get("/results/{mission_id}")
+@cache(expire=60)
+async def get_results(mission_id: str):
+    """Get conflict results with caching"""
+    result = get_conflict_results(mission_id)
+    return ConflictResult(**result)
