@@ -1,0 +1,17 @@
+# config/settings.py
+import os
+from pydantic import BaseSettings
+
+class Settings(BaseSettings):
+    APP_NAME: str = "UAV Deconfliction System"
+    DEBUG: bool = os.getenv("DEBUG", False)
+    SAFETY_BUFFER_2D: float = 5.0
+    SAFETY_BUFFER_3D: float = 5.0
+    ALTITUDE_BUFFER: float = 3.0
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://user:pass@localhost:5432/uav_db")
+    REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+    
+    class Config:
+        env_file = ".env"
+
+settings = Settings()
