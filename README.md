@@ -6,6 +6,8 @@
 - Visualization of conflicts
 - Cloud Deployable (Heroku, AWS, GCP)
 
+<!-- Uploading "1.png"... -->
+
 ## 🚀 Setup & Run Locally
 ```bash
 git clone https://github.com/yourusername/UAV-Deconfliction-API.git
