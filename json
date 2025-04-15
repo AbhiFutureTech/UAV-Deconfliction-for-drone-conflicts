@@ -1,0 +1,45 @@
+import json
+
+sample_json = """
+[
+  {
+    "id": "P1",
+    "waypoints": [
+      {"x": 0, "y": 0, "z": 0, "timestamp": "2025-04-14T10:00:00"},
+      {"x": 100, "y": 100, "z": 10, "timestamp": "2025-04-14T10:05:00"}
+    ]
+  },
+  {
+    "id": "S1",
+    "waypoints": [
+      {"x": 95, "y": 95, "z": 10, "timestamp": "2025-04-14T10:05:00"},
+      {"x": 200, "y": 200, "z": 10, "timestamp": "2025-04-14T10:10:00"}
+    ]
+  }
+]
+"""
+
+def parse_missions(json_str):
+    raw = json.loads(json_str)
+    missions = []
+    for m in raw:
+        waypoints = [
+            Waypoint(x=w['x'], y=w['y'], z=w['z'], timestamp=datetime.fromisoformat(w['timestamp']))
+            for w in m['waypoints']
+        ]
+        missions.append(DroneMission(id=m['id'], waypoints=waypoints))
+    return missions
+
+# Run
+missions = parse_missions(sample_json)
+primary = missions[0]
+others = missions[1:]
+
+status, details = check_conflict(primary, others)
+print("Status:", status)
+if details:
+    for d in details:
+        print(d)
+
+plot_missions(primary, others)
+# animate_4d(primary, others)  # Uncomment to see 4D animation
