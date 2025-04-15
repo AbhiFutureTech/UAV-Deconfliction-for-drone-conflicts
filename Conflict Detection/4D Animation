@@ -1,0 +1,33 @@
+from matplotlib.animation import FuncAnimation
+
+def animate_4d(primary, others):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    def get_coords(drone):
+        return [wp.x for wp in drone.waypoints], [wp.y for wp in drone.waypoints], [wp.z for wp in drone.waypoints], [wp.timestamp for wp in drone.waypoints]
+
+    px, py, pz, pt = get_coords(primary)
+    ox, oy, oz, ot = get_coords(others[0])  # only animate first simulated drone
+
+    line_p, = ax.plot([], [], [], color='blue', label='Primary')
+    line_o, = ax.plot([], [], [], color='red', linestyle='--', label='Simulated')
+
+    ax.set_xlim(0, max(px + ox) + 10)
+    ax.set_ylim(0, max(py + oy) + 10)
+    ax.set_zlim(0, max(pz + oz) + 10)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    ax.legend()
+
+    def update(frame):
+        line_p.set_data(px[:frame], py[:frame])
+        line_p.set_3d_properties(pz[:frame])
+        line_o.set_data(ox[:frame], oy[:frame])
+        line_o.set_3d_properties(oz[:frame])
+        return line_p, line_o
+
+    anim = FuncAnimation(fig, update, frames=len(px), interval=1000, blit=False)
+    plt.show()
+    return anim
