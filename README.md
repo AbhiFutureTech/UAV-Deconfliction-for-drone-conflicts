@@ -1,16 +1,23 @@
-# UAV Conflict Detection API 🚀
+# 📄 UAV Strategic Deconfliction System – Code Documentation
 
-## 📌 Features
-- 2D, 3D, and 4D (spatiotemporal) Conflict Detection
-- FastAPI-based RESTful API
-- Visualization of conflicts
-- Cloud Deployable (Heroku, AWS, GCP)
+## 📦 Data Structures
 
-![Image](https://github.com/user-attachments/assets/c0cfd335-b024-43ca-8a10-e4ecb7cd37df)
+### `Waypoint`
+Represents a single point in 3D space and time.
 
-## 🚀 Setup & Run Locally
-```bash
-git clone https://github.com/yourusername/UAV-Deconfliction-API.git
-cd UAV-Deconfliction-API
-pip install -r requirements.txt
-uvicorn app.main:app --reload
+### `DroneMission`
+Represents a drone's full flight path.
+
+## 🔍 Conflict Detection Logic
+
+- `euclidean_distance(p1, p2)`
+- `check_conflict(primary, others)`
+
+## 📊 Visualization
+
+- `plot_missions()`: 3D static plot
+- `animate_4d()`: Time-evolving animation
+
+## 🧪 Sample Input
+
+A JSON-like list of waypoints with coordinates and timestamps.
