@@ -1,0 +1,20 @@
+from math import sqrt
+
+def euclidean_distance(p1, p2):
+    return sqrt((p1.x - p2.x)**2 + (p1.y - p2.y)**2 + (p1.z - p2.z)**2)
+
+def check_conflict(primary: DroneMission, others: List[DroneMission], time_thresh=5, safety_radius=10):
+    conflicts = []
+    for other in others:
+        for wp1 in primary.waypoints:
+            for wp2 in other.waypoints:
+                if abs((wp1.timestamp - wp2.timestamp).total_seconds()) <= time_thresh:
+                    distance = euclidean_distance(wp1, wp2)
+                    if distance < safety_radius:
+                        conflicts.append({
+                            'conflict_with': other.id,
+                            'time': wp1.timestamp.isoformat(),
+                            'location': (wp1.x, wp1.y, wp1.z),
+                            'distance': distance
+                        })
+    return ("conflict detected", conflicts) if conflicts else ("clear", [])
