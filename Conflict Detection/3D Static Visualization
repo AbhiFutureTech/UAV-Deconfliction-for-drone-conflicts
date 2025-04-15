@@ -1,0 +1,23 @@
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+def plot_missions(primary, others):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    x = [wp.x for wp in primary.waypoints]
+    y = [wp.y for wp in primary.waypoints]
+    z = [wp.z for wp in primary.waypoints]
+    ax.plot(x, y, z, label='Primary Drone', color='blue')
+
+    for drone in others:
+        x = [wp.x for wp in drone.waypoints]
+        y = [wp.y for wp in drone.waypoints]
+        z = [wp.z for wp in drone.waypoints]
+        ax.plot(x, y, z, label=f'Drone {drone.id}', linestyle='--')
+
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    plt.legend()
+    plt.show()
