@@ -1,23 +1,21 @@
-# 📄 UAV Strategic Deconfliction System – Code Documentation
+# UAV Strategic Deconfliction System 🚁
 
-## 📦 Data Structures
+A Python-based simulation tool to detect spatiotemporal conflicts in shared airspace between drone missions.
 
-### `Waypoint`
-Represents a single point in 3D space and time.
+## 🚀 Features
 
-### `DroneMission`
-Represents a drone's full flight path.
+- 📍 Waypoint-based mission planning
+- 🕒 Time-window enforcement
+- 📏 Conflict detection with spatial & temporal checks
+- 🔍 Conflict explanation (when, where, with whom)
+- 📊 3D & 4D (animated) visualization using `matplotlib`
 
-## 🔍 Conflict Detection Logic
+## 📦 Requirements
 
-- `euclidean_distance(p1, p2)`
-- `check_conflict(primary, others)`
+- Python 3.9 or higher
+- matplotlib
+- jupyter (for interactive notebook use)
 
-## 📊 Visualization
-
-- `plot_missions()`: 3D static plot
-- `animate_4d()`: Time-evolving animation
-
-## 🧪 Sample Input
-
-A JSON-like list of waypoints with coordinates and timestamps.
+Install all dependencies:
+```bash
+pip install -r requirements.txt
